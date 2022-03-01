@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id          Int           @id @default(autoincrement())
+  title       String
+  slugTitle   String        @map(name: "slug_title")
+  textContent String
+  richContent String
+  published   Boolean       @default(false)
+  createdAt   DateTime      @default(now()) @map(name: "created_at")
+  author      User          @relation(fields: [authorId], references: [id])
+  authorId    Int
+  category    Category?     @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
+  tags        TagsOnPosts[]
+
+  @@map("post")
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  posts Post[]
+
+  @@map("category")
+}
+
+model Tag {
+  id    Int           @id @default(autoincrement())
+  name  String        @unique
+  posts TagsOnPosts[]
+
+  @@map("tag")
+}
+
+model TagsOnPosts {
+  postId Int
+  tagId  Int
+  tag    Tag  @relation(fields: [tagId], references: [id])
+  post   Post @relation(fields: [postId], references: [id])
+
+  @@id([postId, tagId])
+  @@map("posts_tags")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String   @default("$2b$10$t9z2hwiQR/GmGQ/crs2VJ.IBo9AHDsEifT3tg5orsThSV6oYU9PZa")
+  firstName String
+  lastName  String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  posts     Post[]
+
+  @@map(name: "user")
+}
