@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Post, PrismaClient } from "@prisma/client";
 import slug from "slug";
 import faker from "@faker-js/faker";
 
@@ -32,20 +32,28 @@ async function main() {
     const username = faker.internet.userName(firstName, lastName);
 
     const numOfPosts = faker.datatype.number({ min: 3, max: 20 });
-    const posts: any = Array.from(Array(numOfPosts)).map((_) => {
+    const posts: Array<any> = Array.from(Array(numOfPosts)).map((_) => {
       const title = faker.lorem.words(
         faker.datatype.number({ min: 5, max: 15 })
       );
+      const subtitle = faker.lorem.words(
+        faker.datatype.number({ min: 10, max: 20 })
+      );
       const content = faker.lorem.paragraphs(
-        faker.datatype.number({ min: 300, max: 900 })
+        faker.datatype.number({ min: 200, max: 400 })
+      );
+      const abstract = faker.lorem.paragraphs(
+        faker.datatype.number({ min: 1, max: 2 })
       );
 
       const category = faker.random.arrayElement(CATEGORIES);
       return {
         title,
         slugTitle: slug(title),
-        textContent: content,
-        richContent: content,
+        content,
+        subtitle,
+        abstract,
+        published: true,
         createdAt: faker.date.between(
           "2020-01-01T00:00:00.000Z",
           "2022-01-01T00:00:00.000Z"
