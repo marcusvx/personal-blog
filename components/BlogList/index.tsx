@@ -26,7 +26,7 @@ const BlogList = ({ posts }: BlogListProps) => {
       </Heading>
       <Divider marginTop="5" />
       <Wrap spacing="30px" marginTop="5">
-        {posts.map(({ id, title, abstract, author }) => (
+        {posts.map(({ id, title, abstract, author, tags }) => (
           <WrapItem
             width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}
             key={id}
@@ -49,7 +49,6 @@ const BlogList = ({ posts }: BlogListProps) => {
                   />
                 </Link>
               </Box>
-              <BlogTags tags={["Engineering", "Product"]} marginTop="3" />
               <Heading fontSize="xl" marginTop="2">
                 <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
                   {title}
@@ -62,6 +61,7 @@ const BlogList = ({ posts }: BlogListProps) => {
                 author={author}
                 date={new Date("2021-04-06T19:01:27Z")}
               />
+              <BlogTags tags={tags.map((tag) => tag.name)} marginTop="3" />
             </Box>
           </WrapItem>
         ))}

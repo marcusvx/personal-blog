@@ -1,3 +1,4 @@
+import { BlogTag } from "./blog-tag";
 import { User } from "./user";
 
 export type BlogPost = {
@@ -5,4 +6,5 @@ export type BlogPost = {
   title: string;
   abstract: string;
   author: User;
+  tags: ReadonlyArray<BlogTag>;
 };

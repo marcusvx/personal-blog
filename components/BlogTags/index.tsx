@@ -7,10 +7,17 @@ interface IBlogTags {
 
 const BlogTags: React.FC<IBlogTags> = (props) => {
   return (
-    <HStack spacing={2} marginTop={props.marginTop}>
+    <HStack spacing={1} marginTop={props.marginTop} wrap="wrap" alignItems={"center"}>
       {props.tags.map((tag) => {
         return (
-          <Tag size={"md"} variant="solid" colorScheme="orange" key={tag}>
+          <Tag
+            size={"md"}
+            variant="subtle"
+            colorScheme="orange"
+            key={tag}
+            mt={1}
+            mb={1}
+          >
             {tag}
           </Tag>
         );
