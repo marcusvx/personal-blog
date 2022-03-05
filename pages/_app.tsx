@@ -1,8 +1,11 @@
-import "./styles.css";
-import "bulma/css/bulma.min.css";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const BlogApp = ({ Component, pageProps }) => {
-  return <Component {...pageProps}></Component>;
+  return (
+    <ChakraProvider>
+      <Component {...pageProps}></Component>
+    </ChakraProvider>
+  );
 };
 
 export default BlogApp;

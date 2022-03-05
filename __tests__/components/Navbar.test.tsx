@@ -6,7 +6,7 @@ it("renders a heading", () => {
   render(<Navbar />);
 
   const heading = screen.getByRole("heading", {
-    name: /marcus blog/i,
+    name: /marcus v\. ximenes/i,
   });
 
   expect(heading).toBeInTheDocument();
